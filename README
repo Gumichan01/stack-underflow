@@ -5,31 +5,31 @@ Projet: Stack Overflow
 
 Notre principal objectif, dans le cadre de ce projet est de répondre aux problématiques suivantes:
 
-    Lorsqu'un utilisateur poste une question sur stack overflow, quel(s) tag(s)
-    devrait-il utiliser pour que sa question puisse avoir une meilleure popularité, 
+    Lorsqu'un utilisateur poste une question sur StackOverflow, quel(s) tag(s)
+    devrait-il utiliser pour que sa question puisse avoir une meilleure popularité,
     et/ou qu'elle puisse d'avoir une réponse ?
 
 
 Il faudra probablement tenter de répondre aux question suivantes :
 
-- Quelle est la probalilité qu'une question, pour un tag donné, 
+- Quelle est la probalilité qu'une question, pour un tag donné,
   indépendamment des autres tags, soit populaire ?
 - Quelle est la popularité pour qu'une question, pour un ensemble de tag donné, soit populaire ?
 
-- Quelle est la probalilité qu'une question, pour un tag donné, 
+- Quelle est la probalilité qu'une question, pour un tag donné,
   indépendamment des autres tags, puisse avoir une réponse ?
 - Quelle est la popularité pour qu'une question, pour un ensemble de tag donné, puisse avoir une réponse ?
 
-- Existe-il une corrélation, voire une relation de cause à effet entre 
-  la popularité des tags et celle des questions ? Si oui, la definir.
+- Existe-il une corrélation, voire une relation de cause à effet entre
+  la popularité des tags et celle des questions ? Si oui, la définir.
 
-- Existe-il des termes qui ressortent plus dans les questions les plus 
+- Existe-il des termes qui ressortent plus dans les questions les plus
   populaires/impopulaires (indépendamment ou non des tags)? Si oui, lesquels ?
 
 - Quelle est la probalité qu'une question ayant eu une (au moins) réponse soit populaire ?
 - Quelle la probabilité qu'une question populaire ait une (au moins) réponse ?
 
-- Pour une question postée sur Stack Overflow, quels tags devrait-on générer
+- Pour une question postée sur StackOverflow, quels tags devrait-on générer
   pour maximiser la probabilité qu'une question soit populaire ?
 
 
@@ -41,4 +41,3 @@ Par exemple, si on a des tags du genre : c++, cpp, c++11, cpp11, cpp03, cpp0x,
 on devra les regrouper dans une même famille, car à la fin, on parle du langage C++.
 Des lors qu'on aura défini les familles de tags de manière satisfaisante,
 il sera normalement plus facile de traiter les données.
-
