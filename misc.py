@@ -1,11 +1,14 @@
 #!/bin/python3
 
-import xml.etree.ElementTree as xmlt;
+from math import sqrt
+import xml.etree.ElementTree as xmlt
 from collections import namedtuple as struct
 
 """
-Tag is a structure (named tuple) that contains information about a tag
+    Stack Overflow - tags
 """
+
+# Tag is a structure (named tuple) that contains information about a tag
 Tag = struct("Tags", "id name postid wikipid")
 
 # "private" functions
@@ -81,9 +84,38 @@ def getTagID(tagname):
     tag = getTagInfoByName(tagname);
     return tag.id if tag is not None else None
 
+"""
+    Stack Overflow - statistics about questions
+"""
 
-# Test
+def average(lst):
+    return (sum(lst) / len(lst))
+
+def median(lst):
+    lst.sort()
+    return(lst[len(lst)//2])
+
+def variance(lst):
+    moy = average(lst)
+    d = [(item - moy) ** 2 for item in lst]
+    return (1/ (len(lst)-1)) * sum(d)
+
+def ecarttype(lst):
+    return sqrt(variance(lst))
+
+def stats_questions():
+    with open('data/Tags.xml') as f:
+        pass
+    pass
+
+# Variable "globale"
+qstats = stats_questions()
+
+"""
+    Test
+"""
 print(countTags())
 print(getTagInfoByName("java"))
 print(getTagID("java"))
 print(getTagName(17))
+print(qstats)
