@@ -9,30 +9,31 @@ Tag is a structure (named tuple) that contains information about a tag
 Tag = struct("Tags", "id name postid wikipid")
 
 # "private" functions
-#note use d.get(key, default=None)
-# FIXME
 def dictToTag(d):
     """
         Convert the attibutes of a children to a names tag
         param: d the dictionary gicevn by getTagInfo
-        return tha named structure Tag
+        return the named structure Tag
     """
-    return Tag(id = d.get["Id"], name = d["TagName"],
-               postid  = (d["ExcerptPostId"] if d["ExcerptPostId"] is not None else None),
-               wikipid = (d["WikiPostId"] if d["WikiPostId"] is not None else None))
+    vid      = d.get("Id")
+    vpostid  = d.get("ExcerptPostId")
+    vwikipid = d.get("WikiPostId")
+    id       = int(vid) if vid is not None else None
+    postid   = int(vpostid) if vpostid is not None else None
+    wikipid  = int(vwikipid) if vwikipid is not None else None
+    return Tag(id = id, name = d.get("TagName"), postid = postid, wikipid = wikipid)
 
 def loadTags(file):
     root = xmlt.parse(file).getroot()
     tset = set()
     for child in root:
-        print(child.attrib)
         tset.add(dictToTag(child.attrib))
     return tset
 
 # Variables
 tags = loadTags('data/Tags.xml')
 
-
+# "public" functions
 def countTags():
     """
     Count the number of tags in data/Tags.xml
@@ -40,7 +41,7 @@ def countTags():
     """
     return len(tags)
 
-# Is there a possibility to merge those functions in one?
+# Is there a possibility to merge these functions in one?
 def getTagInfoByName(tagname):
     """
     Get information about a tag specified by its name
@@ -50,7 +51,6 @@ def getTagInfoByName(tagname):
     for t in tags:
         if t.name == tagname:
             return t
-    # not found
     return None
 
 def getTagInfoByID(idtag):
@@ -62,7 +62,6 @@ def getTagInfoByID(idtag):
     for t in tags:
         if t.id == idtag:
             return t
-    # not found
     return None
 
 def getTagName(idtag):
@@ -83,9 +82,8 @@ def getTagID(tagname):
     return tag.id if tag is not None else None
 
 
-
 # Test
 print(countTags())
-#print(getTagInfoByName("java"))
-#print(getTagID("java"))
-#print(getTagName("utfcpp"))
+print(getTagInfoByName("java"))
+print(getTagID("java"))
+print(getTagName(17))
