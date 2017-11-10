@@ -104,9 +104,25 @@ def ecarttype(lst):
     return sqrt(variance(lst))
 
 def stats_questions():
-    with open('data/Tags.xml') as f:
-        pass
-    pass
+    vmin   = 0
+    vmax   = 0
+    vtotal = 0
+    n      = 0
+    vtotal_sq = 0
+    with open('data/questions.csv','r') as f:
+        f.readline()
+        #nrow = int(f.readline().strip('\n').split(',')[4])
+        for line in f:
+            v = int(line.strip('\n').split(',')[4])
+            vmin = v if v < vmin else vmin
+            vmax = v if v > vmax else vmax
+            vtotal += v
+            # Variance
+            n += 1
+            vtotal_sq += v ** 2
+        avg = (vtotal / n)
+        variance = ((1 / n) * vtotal_sq) - (avg ** 2)
+        return (vmin, vmax, avg, variance, sqrt(variance), 0)
 
 # Variable "globale"
 qstats = stats_questions()
@@ -114,8 +130,8 @@ qstats = stats_questions()
 """
     Test
 """
-print(countTags())
-print(getTagInfoByName("java"))
-print(getTagID("java"))
-print(getTagName(17))
+#print(countTags())
+#print(getTagInfoByName("java"))
+#print(getTagID("java"))
+#print(getTagName(17))
 print(qstats)
