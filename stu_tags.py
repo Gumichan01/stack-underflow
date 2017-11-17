@@ -93,7 +93,7 @@ def getTagID(tagname):
 
 #cluster
 
-def getTagCluster(tag_id):
+def getTagClusterByID(tag_id):
     """
         Return the tag cluster of the tag
 
@@ -112,6 +112,24 @@ def getTagCluster(tag_id):
                     return row[1]
     return None
 
+def getTagClusterByName(tag_name):
+    """
+        Return the tag cluster of the tag
+
+        Arg:
+            the tag specified by its name
+        Return:
+            the tag cluster (identifier) if found, None otherwise
+    """
+    with open(TAG_NETOWRK_NODE, 'r') as f:
+            f.readline()    s# I ignore the first because it's just metadata
+            for line in f:
+                row = line.strip('\n').split(',')
+                tname = row[0]
+                if tag_name == tname:
+                    return row[1]
+    return None
+
 
 # Global variables
 tags = loadTags(TAGS_FILE)
@@ -119,8 +137,11 @@ tags = loadTags(TAGS_FILE)
 """
     Test
 """
-print(countTags())
-print(getTagInfoByName("java"))
-print(getTagID("java"))
-print(getTagName(17))
-print(getTagCluster(17))
+#print(countTags())
+#print(getTagInfoByName("java"))
+#print(getTagID("java"))
+#print(getTagName(17))
+#print(getTagClusterByID(17))
+#print(getTagClusterByID(getTagID("java")))
+#print(getTagClusterByName('java'))
+#print(getTagClusterByName(getTagName(17)))
