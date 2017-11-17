@@ -9,6 +9,8 @@ import stu_tags
 
 from math import sqrt
 
+QUESTION_TAGS = 'data/question_tags.csv'
+
 def stats_questions():
     """
         Preprocessing function that generates basics statistics about
@@ -44,17 +46,30 @@ def write_stats_in(stat, filename):
         f.write(metadata)
         f.write(s)
 
-qstats = stats_questions()
-print(qstats)
 
-
-def getQTag(question_id):
+def getQTags(question_id):
     """
         Return a list of tags related the question specified by its id
 
         Arg:
             question_id
         Return:
-            the list of tags
+            the list of tags if found, None otherwise
     """
-    pass
+    had_found_qid = False
+    tags = []
+    with open(QUESTION_TAGS, 'r') as f:
+        f.readline()    # I ignore this first line because it's just metadata
+        for line in f:
+            row = line.strip('\n').split(',')
+            qid = row[0]
+            if question_id == qid:
+                if not(had_found_qid):
+                    had_found_qid = True
+                tags.append(row[1])
+            else:
+                if had_found_qid:
+                    return tags
+    return None
+
+print(getQTags(25))

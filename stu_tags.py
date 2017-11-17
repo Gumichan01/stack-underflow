@@ -122,7 +122,7 @@ def getTagClusterByName(tag_name):
             the tag cluster (identifier) if found, None otherwise
     """
     with open(TAG_NETOWRK_NODE, 'r') as f:
-            f.readline()    s# I ignore the first because it's just metadata
+            f.readline()    # I ignore the first because it's just metadata
             for line in f:
                 row = line.strip('\n').split(',')
                 tname = row[0]
