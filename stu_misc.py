@@ -19,3 +19,13 @@ def variance(lst):
 
 def std_deviation(lst):
     return sqrt(variance(lst))
+
+
+"""
+    Test
+"""
+#lst = [16,21,32,4,56,64,7,80,96,42,1024]
+#print(average(lst))
+#print(median(lst))
+#print(variance(lst))
+#print(std_deviation(lst))
