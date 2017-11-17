@@ -87,6 +87,20 @@ def getTagID(tagname):
     return tag.id if tag is not None else None
 
 
+#cluster
+
+def getTagCluster(tag_id):
+    """
+        Return the tag cluster of the tag
+
+        Arg:
+            the tag specified by its id
+        Return:
+            the tag cluster - identifier
+    """
+    
+
+
 # Global variables
 tags = loadTags('data/Tags.xml')
 

@@ -1,4 +1,12 @@
 
+"""
+    stu_questions.py
+
+    It contains every operations on questions
+"""
+
+import stu_tags
+
 from math import sqrt
 
 def stats_questions():
@@ -38,3 +46,15 @@ def write_stats_in(stat, filename):
 
 qstats = stats_questions()
 print(qstats)
+
+
+def getQTag(question_id):
+    """
+        Return a list of tags related the question specified by its id
+
+        Arg:
+            question_id
+        Return:
+            the list of tags
+    """
+    pass
