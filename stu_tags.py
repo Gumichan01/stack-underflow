@@ -13,6 +13,10 @@ from collections import namedtuple as struct
     Stack Overflow - tags
 """
 
+TAGS_FILE         = 'data/Tags.xml'
+TAG_NETOWRK_NODE  = 'data/stack_network_nodes.csv'
+TAG_NETOWRK_LINKS = 'data/stack_network_links.csv'
+
 # Tag is a structure (named tuple) that contains information about a tag
 Tag = struct("Tags", "id name postid wikipid")
 
@@ -96,18 +100,27 @@ def getTagCluster(tag_id):
         Arg:
             the tag specified by its id
         Return:
-            the tag cluster - identifier
+            the tag cluster (identifier) if found, None otherwise
     """
-    
+    tag_name = getTagName(tag_id)
+    with open(TAG_NETOWRK_NODE, 'r') as f:
+            f.readline()    # I ignore the first because it's just metadata
+            for line in f:
+                row = line.strip('\n').split(',')
+                tname = row[0]
+                if tag_name == tname:
+                    return row[1]
+    return None
 
 
 # Global variables
-tags = loadTags('data/Tags.xml')
+tags = loadTags(TAGS_FILE)
 
 """
     Test
 """
-#print(countTags())
-#print(getTagInfoByName("java"))
-#print(getTagID("java"))
-#print(getTagName(17))
+print(countTags())
+print(getTagInfoByName("java"))
+print(getTagID("java"))
+print(getTagName(17))
+print(getTagCluster(17))
