@@ -55,7 +55,6 @@ def getQTags(question_id):
         Return:
             the list of tags if found, None otherwise
     """
-    had_found_qid = False
     tags = []
     with open(QUESTION_TAGS, 'r') as f:
         f.readline()    # I ignore this first line because it's just metadata
@@ -66,6 +65,16 @@ def getQTags(question_id):
                 tags.append(row[1])
             elif qid > question_id:
                 return tags if tags != [] else None
-        return None
+        return tags if tags != [] else None
 
-print(getQTags(25))
+def getLine(file, n):
+    with open(file, 'r') as f:
+        line = None
+        while n > 0:
+            line = f.readline();
+            n -= 1
+        return line
+
+#print(getLine(QUESTION_TAGS, 2500000))
+#print(getQTags(25))
+#print(getQTags(42069071)) # too long
