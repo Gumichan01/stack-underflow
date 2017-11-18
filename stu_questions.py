@@ -76,5 +76,17 @@ def getLine(file, n):
         return line
 
 #print(getLine(QUESTION_TAGS, 2500000))
-#print(getQTags(25))
+#print(getQTags(698))
 #print(getQTags(42069071)) # too long
+"""
+t = getQTags(698)
+
+for telem in t:
+    cluster = getTagClusterByName(telem)
+    print('------------------------')
+    print(telem)
+    print(cluster)
+    print(getTagInfoByName(telem))
+    if cluster is not None:
+        print(getTagsOfCluster(cluster))
+"""
