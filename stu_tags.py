@@ -13,6 +13,7 @@ from collections import namedtuple as struct
     Stack Overflow - tags
 """
 
+# constant values
 TAGS_FILE         = 'data/Tags.xml'
 TAG_NETOWRK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETOWRK_LINKS = 'data/stack_network_links.csv'
@@ -21,7 +22,7 @@ TAG_NETOWRK_LINKS = 'data/stack_network_links.csv'
 Tag = struct("Tags", "id name postid wikipid")
 
 # "private" functions
-def dictToTag(d):
+def _dictToTag(d):
     """
         Convert the attibutes of a children to a names tag
         param: d the dictionary gicevn by getTagInfo
@@ -35,11 +36,11 @@ def dictToTag(d):
     wikipid  = int(vwikipid) if vwikipid is not None else None
     return Tag(id = id, name = d.get("TagName"), postid = postid, wikipid = wikipid)
 
-def loadTags(file):
+def _loadTags(file):
     root = xmlt.parse(file).getroot()
     tset = set()
     for child in root:
-        tset.add(dictToTag(child.attrib))
+        tset.add(_dictToTag(child.attrib))
     return tset
 
 # "public" functions
@@ -132,7 +133,7 @@ def getTagClusterByName(tag_name):
 
 
 # Global variables
-tags = loadTags(TAGS_FILE)
+tags = _loadTags(TAGS_FILE)
 
 """
     Test
