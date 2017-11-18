@@ -5,13 +5,12 @@
     It contains every operations on questions
 """
 
-import stu_tags
-
+from stu_tags import *
 from math import sqrt
 
 QUESTION_TAGS = 'data/question_tags.csv'
 
-def stats_questions():
+def _stats_questions():
     """
         Preprocessing function that generates basics statistics about
         the score of the questions posted on stack Overflow from questions.csv.
@@ -39,7 +38,7 @@ def stats_questions():
         variance = ((1 / n) * vtotal_sq) - (avg ** 2)
         return (vmin, vmax, avg, variance, sqrt(variance))
 
-def write_stats_in(stat, filename):
+def _write_stats_in(stat, filename):
     with open(filename, "w+") as f:
         metadata = 'min, max, average, variance, standard deviation\n'
         s = str(stat).strip('()') + '\n'
@@ -62,14 +61,11 @@ def getQTags(question_id):
         f.readline()    # I ignore this first line because it's just metadata
         for line in f:
             row = line.strip('\n').split(',')
-            qid = row[0]
-            if question_id == qid:
-                if not(had_found_qid):
-                    had_found_qid = True
+            qid = int(row[0])
+            if qid == question_id:
                 tags.append(row[1])
-            else:
-                if had_found_qid:
-                    return tags
-    return None
+            elif qid > question_id:
+                return tags if tags != [] else None
+        return None
 
 print(getQTags(25))
