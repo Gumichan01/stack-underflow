@@ -67,6 +67,31 @@ def getQTags(question_id):
                 return tags if tags != [] else None
         return tags if tags != [] else None
 
+def getQuestions(tagname):
+    """
+        Return the list of the questions that are related to the tags
+
+        Arg:
+            tagname the name of the tag
+        Return:
+            the list of question, by identifier
+    """
+    tags = []
+    with open(QUESTION_TAGS, 'r') as f:
+        f.readline()    # I ignore this first line because it's just metadata
+        for line in f:
+            row = line.strip('\n').split(',')
+            #qid = int(row[0])
+            if row[1] == tagname:
+                tags.append(int(row[0]))
+    return tags
+
+"""
+    Test
+"""
+
+print(len(getQuestions('c++11')))
+
 #print(getQTags(698))
 #print(getQTags(42069071)) # too long
 """
