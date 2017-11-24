@@ -67,15 +67,6 @@ def getQTags(question_id):
                 return tags if tags != [] else None
         return tags if tags != [] else None
 
-def getLine(file, n):
-    with open(file, 'r') as f:
-        line = None
-        while n > 0:
-            line = f.readline();
-            n -= 1
-        return line
-
-#print(getLine(QUESTION_TAGS, 2500000))
 #print(getQTags(698))
 #print(getQTags(42069071)) # too long
 """
