@@ -9,6 +9,7 @@ from stu_tags import *
 from math import sqrt
 
 QUESTION_TAGS = 'data/question_tags.csv'
+SAMPLE_QUESTIONS = 'data/sample_questions.csv'
 
 def _stats_questions():
     """

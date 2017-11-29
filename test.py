@@ -8,6 +8,6 @@ import csv;
 with open('data/test.csv') as csvf:
     reader = csv.reader(csvf, skipinitialspace=True)
     for r in reader:
-        r[6] = ''.join(' ' if c == '\n' or c == '\t' else c for c in r[6]).strip(' ')
+        r[6] = ''.join(' ' if c == '\n' or c == '\t' else c for c in r[6])
         print(len(r))
         print(r)
