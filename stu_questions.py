@@ -91,7 +91,7 @@ def getQuestions(tagname):
     Test
 """
 
-print(len(getQuestions('c++11')))
+#print(len(getQuestions('c++11')))
 
 #print(getQTags(698))
 #print(getQTags(42069071)) # too long

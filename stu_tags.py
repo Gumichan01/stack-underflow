@@ -168,3 +168,10 @@ tags = _loadTags(TAGS_FILE)
 #print(getTagsOfCluster(5))
 #print(getTagsOfCluster(getTagClusterByName(getTagName(17))))
 #print(getTagsOfCluster(getTagClusterByID(getTagID("java"))))
+
+"""
+for i in range(100):
+    t = getTagsOfCluster(i)
+    if t is not None:
+        print(i, t)
+"""
