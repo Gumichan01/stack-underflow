@@ -15,15 +15,15 @@ with open('data/sample_questions.csv') as csvf:
         print(r[0])
     print(v)
 """
-
+"""
 print('Tags')
 tgs = getTagsOfCluster(1)
 print(tgs)
 q = getQuestions(tgs[1])
 print(len(q))
-s = ''
+s = None
 print('get the question no. ', q[0])
-with open('data/sample_questions.csv') as csvf:
+with open('data/sample_questionsv0.csv', 'r') as csvf:
     reader = csv.reader(csvf, skipinitialspace=True)
     for r in reader:
         if r[0] == 'Id':
@@ -32,5 +32,13 @@ with open('data/sample_questions.csv') as csvf:
         if int(r[0]) == q[0]:
             s = ''.join(r[5], r[6])
 
-print()
-print(s)
+if s is not None:
+    print(s)
+else:
+    print("not found question")
+"""
+
+with open('data/sample_questionsv0.csv', 'r') as csvf:
+    reader = csv.reader(csvf, skipinitialspace=True)
+    for r in reader:
+        print(r[0])

@@ -9,7 +9,7 @@ from stu_tags import *
 from math import sqrt
 
 QUESTION_TAGS = 'data/question_tags.csv'
-SAMPLE_QUESTIONS = 'data/sample_questions.csv'
+SAMPLE_QUESTIONS = 'data/sample_questionsv0.csv'
 
 def _stats_questions():
     """
@@ -91,11 +91,9 @@ def getQuestions(tagname):
     Test
 """
 
-#print(len(getQuestions('c++11')))
-
-#print(getQTags(698))
-#print(getQTags(42069071)) # too long
 """
+print(len(getQuestions('c++11')))
+
 t = getQTags(698)
 
 for telem in t:
