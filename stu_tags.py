@@ -19,7 +19,7 @@ TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
 # Tag is a structure (named tuple) that contains information about a tag
-Tag = struct("Tags", "id name postid wikipid")
+Tag = struct("Tags", "id name")
 
 # "private" functions
 def _dictToTag(d):
@@ -29,12 +29,8 @@ def _dictToTag(d):
         return the named structure Tag
     """
     vid      = d.get("Id")
-    vpostid  = d.get("ExcerptPostId")
-    vwikipid = d.get("WikiPostId")
     id       = int(vid) if vid is not None else None
-    postid   = int(vpostid) if vpostid is not None else None
-    wikipid  = int(vwikipid) if vwikipid is not None else None
-    return Tag(id = id, name = d.get("TagName"), postid = postid, wikipid = wikipid)
+    return Tag(id = id, name = d.get("TagName"))
 
 def _loadTags(file):
     root = xmlt.parse(file).getroot()

@@ -3,9 +3,6 @@ import csv
 from stu_tags import *
 from stu_questions import *
 
-#reader = csv.reader(['1997,Ford,E350,"Super, luxurious truck"'], skipinitialspace=True)
-#for r in reader:
-#    print(r)
 """
 with open('data/sample_questions.csv') as csvf:
     reader = csv.reader(csvf, skipinitialspace=True)
