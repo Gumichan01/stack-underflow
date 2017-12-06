@@ -14,7 +14,7 @@ from collections import namedtuple as struct
 """
 
 # constant values
-TAGS_FILE         = 'data/Tags.xml'
+TAGS_FILE         = 'data/sample_tags.csv'
 TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
@@ -33,11 +33,12 @@ def _dictToTag(d):
     return Tag(id = id, name = d.get("TagName"))
 
 def _loadTags(file):
-    root = xmlt.parse(file).getroot()
-    tset = set()
-    for child in root:
-        tset.add(_dictToTag(child.attrib))
-    return tset
+    with open(TAGS_FILE) as f:
+        f.readline()
+        tset = set()
+        for line in f:
+            row = line.strip('\n')
+            tset.add(Tag(id = int(row[0]), name = row[1]))
 
 # "public" functions
 def countTags():

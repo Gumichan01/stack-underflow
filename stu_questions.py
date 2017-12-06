@@ -82,7 +82,6 @@ def getQuestions(tagname):
         f.readline()    # I ignore this first line because it's just metadata
         for line in f:
             row = line.strip('\n').split(',')
-            #qid = int(row[0])
             if row[1] == tagname:
                 tags.append(int(row[0]))
     return tags
