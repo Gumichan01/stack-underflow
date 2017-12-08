@@ -51,7 +51,7 @@ def getQuestionsFromTag(tagname):
         for line in f:
             row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
             qidv = int(row[0])
-            if row[1] == tagname and isInSample(qidv):
+            if row[1] == tagname:
                 qarray.append(qidv)
     return qarray
 
@@ -77,7 +77,7 @@ def isInSample(qid):
 def filterQuestions(qarray):
     """
         Filter the array of question. It generates a new array that contains
-        the identifiers tha refers to the questions in the sample
+        the identifiers that refers to the questions in the sample
 
         Arg:
             an array of questions
@@ -85,13 +85,27 @@ def filterQuestions(qarray):
         Return:
             the filtered array
     """
-    return [q for q in qarray if isInSample(q)]
-
+    v = 0
+    fqarray = []
+    for q in qarray:
+        if isInSample(q):
+            fqarray.append(q)
+            v += 1
+        if v == 10000:
+            return fqarray
+    return fqarray
 """
     Test
 """
 
-#print('Questions from c++')
-#qs = getQuestionsFromTag('c++')
-#print(len(getQuestionsFromTag('c++')))
+print('Questions from c++ \n')
+qs = getQuestionsFromTag('c++')
+print('qs ok \n')
+print(len(qs))
+#print(len(filterQuestions(qs)))
+print('filter \n')
+fqs = filterQuestions(qs)
+qs = None
+print('fqs ok \n')
+print(len(fqs))
 #print(filterQuestions([75,76,77,78,79,80, 330, 331, 332]))
