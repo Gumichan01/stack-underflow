@@ -5,12 +5,15 @@
     It contains every operations on questions
 """
 
-from stu_tags import *
-from math import sqrt
+import csv
 import stu_misc
 
-QUESTION_TAGS = 'data/question_tags.csv'
-SAMPLE_QUESTIONS = 'data/sample_questionsv0.csv'
+from stu_tags import *
+from math import sqrt
+
+
+QUESTION_TAGS   = 'data/question_tags.csv'
+QUESTION_SAMPLE = 'data/sample_questionsv0.csv'
 
 def getQTags(question_id):
     """
@@ -47,9 +50,42 @@ def getQuestionsFromTag(tagname):
         f.readline()    # I ignore this first line because it's just metadata
         for line in f:
             row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
-            if row[1] == tagname:
-                qarray.append(int(row[0]))
+            qidv = int(row[0])
+            if row[1] == tagname and isInSample(qidv):
+                qarray.append(qidv)
     return qarray
+
+def isInSample(qid):
+    """
+        Return the list of question identifers
+        so that each identifier refers to a real question in the sample
+
+        Arg:
+            the question identifier
+
+        Return:
+            True if it is in the sample, False otherwise
+    """
+    with open(QUESTION_SAMPLE, 'r') as csvf:
+        reader = csv.reader(csvf, skipinitialspace=True)
+        for r in reader:
+            if r[0] == 'Id' or int(r[0]) < qid:
+                continue
+            else:
+                return int(r[0]) == qid
+
+def filterQuestions(qarray):
+    """
+        Filter the array of question. It generates a new array that contains
+        the identifiers tha refers to the questions in the sample
+
+        Arg:
+            an array of questions
+
+        Return:
+            the filtered array
+    """
+    return [q for q in qarray if isInSample(q)]
 
 """
     Test
@@ -57,4 +93,5 @@ def getQuestionsFromTag(tagname):
 
 #print('Questions from c++')
 #qs = getQuestionsFromTag('c++')
-#print(len(qs))
+#print(len(getQuestionsFromTag('c++')))
+#print(filterQuestions([75,76,77,78,79,80, 330, 331, 332]))
