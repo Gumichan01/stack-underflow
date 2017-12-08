@@ -75,7 +75,7 @@ def getTagClusterByName(tag_name):
             the tag cluster (identifier) if found, None otherwise
     """
     with open(TAG_NETWORK_NODE, 'r') as f:
-            f.readline()    # I ignore the first because it's just metadata
+            f.readline()    # I ignore the first line because it's just metadata
             for line in f:
                 row = line.strip(ENDL).split(COMMA)
                 tname = row[0]
@@ -94,7 +94,7 @@ def getTagsOfCluster(cluster_id):
     """
     with open(TAG_NETWORK_NODE, 'r') as f:
         cluster_tags = []
-        f.readline()    # I ignore the first because it's just metadata
+        f.readline()    # I ignore the first line because it's just metadata
         for line in f:
             row = line.strip(ENDL).split(COMMA)
             cluster_value = int(row[1])
