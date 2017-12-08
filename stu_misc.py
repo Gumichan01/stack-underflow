@@ -2,8 +2,9 @@
 from math import sqrt
 
 """
-    Stack Overflow - statistics about questions
+    misc.py is a file that contains miscellaneous functions
 """
+
 
 def average(lst):
     return (sum(lst) / len(lst))
