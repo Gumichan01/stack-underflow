@@ -8,9 +8,14 @@ from collections import namedtuple as struct
 """
 
 # constant values
+#files
 TAGS_FILE         = 'data/sample_tags.csv'
 TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
+
+# delimiter
+ENDL  = '\n'
+COMMA = ','
 
 # Tag is a structure (named tuple) that contains information about a tag
 Tag = struct("TagInfo", "id name")
@@ -29,7 +34,7 @@ def _loadTags():
         tarray = []
         lines  = f.readlines()
         for line in lines:
-            row = line.strip('\n')
+            row = line.strip(ENDL).split(COMMA)
             tarray.append(Tag(id = int(row[0]), name = row[1]))
         return tarray
 
@@ -43,7 +48,6 @@ def countTags():
     """
     return _taglength
 
-# Is there a possibility to merge these functions in one?
 def getTagInfoByName(tagname):
     """
         Get information about a tag specified by its name
@@ -59,67 +63,7 @@ def getTagInfoByName(tagname):
             return t
     return None
 
-def getTagInfoByID(idtag):  # remove it!
-    """
-        Get information about a tag specified by its ID
-
-        Arg:
-            the tag, specified by the identifier
-
-        Return:
-            a named n-tuple TagInfo is found, None otherwise
-    """
-    for t in tags:
-        if t.id == idtag:
-            return t
-    return None
-
-def getTagName(idtag):  # remove it!
-    """
-        Get the name of the tag according to its id
-
-        Return:
-            the name of the tag if found, None otherwise
-    """
-    tag = getTagInfoByID(idtag);
-    return tag.name if tag is not None else None
-
-
-def getTagID(tagname):  # remove it!
-    """
-        Get the ID of the tag according to its name
-
-        Return:
-            the name of the tag if found, None otherwise
-    """
-    tag = getTagInfoByName(tagname);
-    return tag.id if tag is not None else None
-
-
 #cluster
-
-def getTagClusterByID(tag_id):  # remove it!
-    """
-        Return the tag cluster of the tag
-
-        Arg:
-            the tag specified by its id
-        Return:
-            the tag cluster (identifier) if found, None otherwise
-    """
-    tag_name = getTagName(tag_id)
-    return getTagClusterByName(tag_name) if tag_name is not None else None
-
-    """
-    with open(TAG_NETWORK_NODE, 'r') as f:
-            f.readline()    # I ignore the first because it's just metadata
-            for line in f:
-                row = line.strip('\n').split(',')
-                tname = row[0]
-                if tag_name == tname:
-                    return int(row[1])
-    return None
-    """
 
 def getTagClusterByName(tag_name):
     """
@@ -133,7 +77,7 @@ def getTagClusterByName(tag_name):
     with open(TAG_NETWORK_NODE, 'r') as f:
             f.readline()    # I ignore the first because it's just metadata
             for line in f:
-                row = line.strip('\n').split(',')
+                row = line.strip(ENDL).split(COMMA)
                 tname = row[0]
                 if tag_name == tname:
                     return int(row[1])
@@ -152,7 +96,7 @@ def getTagsOfCluster(cluster_id):
         cluster_tags = []
         f.readline()    # I ignore the first because it's just metadata
         for line in f:
-            row = line.strip('\n').split(',')
+            row = line.strip(ENDL).split(COMMA)
             cluster_value = int(row[1])
             if cluster_value == cluster_id:
                 cluster_tags.append(row[0])
@@ -166,15 +110,9 @@ _taglength = len(tags)
 """
     Test
 """
-print(countTags())
-print(getTagInfoByName('c++'))
-print(getTagClusterByName('c++'))
-print(getTagsOfCluster(getTagClusterByName('c++')))
-
-"""
-# get the tags from a cluster
-for i in range(100):
-    t = getTagsOfCluster(i)
-    if t is not None:
-        print(i, t)
-"""
+#print(countTags())
+#print(getTagInfoByName('c++'))
+#print(getTagClusterByName('c++'))
+#print(getTagsOfCluster(getTagClusterByName('c++')))
+#print(tags[0])
+#print(tags[79])
