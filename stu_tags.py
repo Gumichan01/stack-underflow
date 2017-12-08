@@ -13,25 +13,16 @@ TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
 # Tag is a structure (named tuple) that contains information about a tag
-Tag = struct("Tags", "id name")
+Tag = struct("TagInfo", "id name")
 
 # "private" functions
-def _dictToTag(d):  # This function is useless (remove it!)
-    """
-        Convert the attibutes of a children to a names tag
-        param: d the dictionary gicevn by getTagInfo
-        return the named structure Tag
-    """
-    vid      = d.get("Id")
-    id       = int(vid) if vid is not None else None
-    return Tag(id = id, name = d.get("TagName"))
-
 def _loadTags():
     """
         It loads the tags from TAGS_FILE and and stores them
         in a data structure that contains the tags
 
-        Return: an iterable data structure that contains the tags on success, None
+        Return:
+            an iterable data structure that contains the tags on success, None
     """
     with open(TAGS_FILE) as f:
         f.readline()    # I ignore the first line
@@ -45,18 +36,23 @@ def _loadTags():
 # "public" functions
 def countTags():
     """
-        Count the number of tags in data/Tags.xml
+        Count the number of tags
 
-        Return: the number of tags
+        Return:
+            the number of tags
     """
-    return len(tags)
+    return _taglength
 
 # Is there a possibility to merge these functions in one?
 def getTagInfoByName(tagname):
     """
-    Get information about a tag specified by its name
-    param: tagname the tag
-    return: named n-tuple Tags is found, None otherwise
+        Get information about a tag specified by its name
+
+        Arg:
+            tagname the tag
+
+        Return:
+            a named n-tuple TagInfo is found, None otherwise
     """
     for t in tags:
         if t.name == tagname:
@@ -67,9 +63,11 @@ def getTagInfoByID(idtag):
     """
         Get information about a tag specified by its ID
 
-        Arg: idtag the tag
+        Arg:
+            the tag, specified by the identifier
 
-        Return: named n-tuple Tags is found, None otherwise
+        Return:
+            a named n-tuple TagInfo is found, None otherwise
     """
     for t in tags:
         if t.id == idtag:
@@ -80,7 +78,8 @@ def getTagName(idtag):
     """
         Get the name of the tag according to its id
 
-        Return: the name of the tag if found, None otherwise
+        Return:
+            the name of the tag if found, None otherwise
     """
     tag = getTagInfoByID(idtag);
     return tag.name if tag is not None else None
@@ -90,7 +89,8 @@ def getTagID(tagname):
     """
         Get the ID of the tag according to its name
 
-        Return: the name of the tag if found, None otherwise
+        Return:
+            the name of the tag if found, None otherwise
     """
     tag = getTagInfoByName(tagname);
     return tag.id if tag is not None else None
@@ -161,6 +161,7 @@ def getTagsOfCluster(cluster_id):
 
 # Global variables
 tags = _loadTags()
+_taglength = len(tags)
 
 """
     Test
