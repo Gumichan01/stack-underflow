@@ -55,6 +55,6 @@ def getQuestionsFromTag(tagname):
     Test
 """
 
-print('Questions from c++')
-qs = getQuestionsFromTag('c++')
-print(len(qs))
+#print('Questions from c++')
+#qs = getQuestionsFromTag('c++')
+#print(len(qs))
