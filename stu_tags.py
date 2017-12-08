@@ -2,6 +2,7 @@
 
 from math import sqrt
 from collections import namedtuple as struct
+import stu_misc
 
 """
     Stack Overflow - tags
@@ -12,10 +13,6 @@ from collections import namedtuple as struct
 TAGS_FILE         = 'data/sample_tags.csv'
 TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
-
-# delimiter
-ENDL  = '\n'
-COMMA = ','
 
 # Tag is a structure (named tuple) that contains information about a tag
 Tag = struct("TagInfo", "id name")
@@ -34,7 +31,7 @@ def _loadTags():
         tarray = []
         lines  = f.readlines()
         for line in lines:
-            row = line.strip(ENDL).split(COMMA)
+            row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
             tarray.append(Tag(id = int(row[0]), name = row[1]))
         return tarray
 
@@ -77,7 +74,7 @@ def getTagClusterByName(tag_name):
     with open(TAG_NETWORK_NODE, 'r') as f:
             f.readline()    # I ignore the first line because it's just metadata
             for line in f:
-                row = line.strip(ENDL).split(COMMA)
+                row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
                 tname = row[0]
                 if tag_name == tname:
                     return int(row[1])
@@ -96,7 +93,7 @@ def getTagsOfCluster(cluster_id):
         cluster_tags = []
         f.readline()    # I ignore the first line because it's just metadata
         for line in f:
-            row = line.strip(ENDL).split(COMMA)
+            row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
             cluster_value = int(row[1])
             if cluster_value == cluster_id:
                 cluster_tags.append(row[0])
