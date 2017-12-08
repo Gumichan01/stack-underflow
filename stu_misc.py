@@ -5,7 +5,13 @@ from math import sqrt
     misc.py is a file that contains miscellaneous functions
 """
 
+# miscellaneous constant values
 
+# delimiters
+ENDL  = '\n'
+COMMA = ','
+
+# miscellaneous functions
 def average(lst):
     return (sum(lst) / len(lst))
 
