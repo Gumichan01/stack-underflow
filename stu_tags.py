@@ -59,7 +59,7 @@ def getTagInfoByName(tagname):
             return t
     return None
 
-def getTagInfoByID(idtag):
+def getTagInfoByID(idtag):  # remove it!
     """
         Get information about a tag specified by its ID
 
@@ -74,7 +74,7 @@ def getTagInfoByID(idtag):
             return t
     return None
 
-def getTagName(idtag):
+def getTagName(idtag):  # remove it!
     """
         Get the name of the tag according to its id
 
@@ -85,7 +85,7 @@ def getTagName(idtag):
     return tag.name if tag is not None else None
 
 
-def getTagID(tagname):
+def getTagID(tagname):  # remove it!
     """
         Get the ID of the tag according to its name
 
@@ -98,7 +98,7 @@ def getTagID(tagname):
 
 #cluster
 
-def getTagClusterByID(tag_id):
+def getTagClusterByID(tag_id):  # remove it!
     """
         Return the tag cluster of the tag
 
@@ -167,16 +167,9 @@ _taglength = len(tags)
     Test
 """
 print(countTags())
-#print(getTagInfoByName('java'))
-#print(getTagID('java'))
-#print(getTagName(17))
-#print(getTagClusterByID(17))
-#print(getTagClusterByID(getTagID('java')))
-#print(getTagClusterByName('java'))
-#print(getTagClusterByName(getTagName(17)))
-#print(getTagsOfCluster(5))
-#print(getTagsOfCluster(getTagClusterByName(getTagName(17))))
-#print(getTagsOfCluster(getTagClusterByID(getTagID('java'))))
+print(getTagInfoByName('c++'))
+print(getTagClusterByName('c++'))
+print(getTagsOfCluster(getTagClusterByName('c++')))
 
 """
 # get the tags from a cluster
