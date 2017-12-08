@@ -1,12 +1,6 @@
 #!/bin/python3
 
-"""
-    misc.py is a file that contains miscellaneous functions
-    and make preprocessing of data
-"""
-
 from math import sqrt
-import xml.etree.ElementTree as xmlt
 from collections import namedtuple as struct
 
 """
@@ -22,7 +16,7 @@ TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 Tag = struct("Tags", "id name")
 
 # "private" functions
-def _dictToTag(d):
+def _dictToTag(d):  # This function is useless (remove it!)
     """
         Convert the attibutes of a children to a names tag
         param: d the dictionary gicevn by getTagInfo
@@ -32,19 +26,28 @@ def _dictToTag(d):
     id       = int(vid) if vid is not None else None
     return Tag(id = id, name = d.get("TagName"))
 
-def _loadTags(file):
+def _loadTags():
+    """
+        It loads the tags from TAGS_FILE and and stores them
+        in a data structure that contains the tags
+
+        Return: an iterable data structure that contains the tags on success, None
+    """
     with open(TAGS_FILE) as f:
-        f.readline()
-        tset = set()
-        for line in f:
+        f.readline()    # I ignore the first line
+        tarray = []
+        lines  = f.readlines()
+        for line in lines:
             row = line.strip('\n')
-            tset.add(Tag(id = int(row[0]), name = row[1]))
+            tarray.append(Tag(id = int(row[0]), name = row[1]))
+        return tarray
 
 # "public" functions
 def countTags():
     """
-    Count the number of tags in data/Tags.xml
-    return: the number of tags
+        Count the number of tags in data/Tags.xml
+
+        Return: the number of tags
     """
     return len(tags)
 
@@ -62,9 +65,11 @@ def getTagInfoByName(tagname):
 
 def getTagInfoByID(idtag):
     """
-    Get information about a tag specified by its ID
-    param: idtag the tag
-    return: named n-tuple Tags is found, None otherwise
+        Get information about a tag specified by its ID
+
+        Arg: idtag the tag
+
+        Return: named n-tuple Tags is found, None otherwise
     """
     for t in tags:
         if t.id == idtag:
@@ -73,8 +78,9 @@ def getTagInfoByID(idtag):
 
 def getTagName(idtag):
     """
-    Get the name of the tag according to its id
-    return: the name of the tag if found, None otherwise
+        Get the name of the tag according to its id
+
+        Return: the name of the tag if found, None otherwise
     """
     tag = getTagInfoByID(idtag);
     return tag.name if tag is not None else None
@@ -82,8 +88,9 @@ def getTagName(idtag):
 
 def getTagID(tagname):
     """
-    Get the ID of the tag according to its name
-    return: the name of the tag if found, None otherwise
+        Get the ID of the tag according to its name
+
+        Return: the name of the tag if found, None otherwise
     """
     tag = getTagInfoByName(tagname);
     return tag.id if tag is not None else None
@@ -101,6 +108,9 @@ def getTagClusterByID(tag_id):
             the tag cluster (identifier) if found, None otherwise
     """
     tag_name = getTagName(tag_id)
+    return getTagClusterByName(tag_name) if tag_name is not None else None
+
+    """
     with open(TAG_NETWORK_NODE, 'r') as f:
             f.readline()    # I ignore the first because it's just metadata
             for line in f:
@@ -109,6 +119,7 @@ def getTagClusterByID(tag_id):
                 if tag_name == tname:
                     return int(row[1])
     return None
+    """
 
 def getTagClusterByName(tag_name):
     """
@@ -149,24 +160,25 @@ def getTagsOfCluster(cluster_id):
 
 
 # Global variables
-tags = _loadTags(TAGS_FILE)
+tags = _loadTags()
 
 """
     Test
 """
-#print(countTags())
-#print(getTagInfoByName("java"))
-#print(getTagID("java"))
+print(countTags())
+#print(getTagInfoByName('java'))
+#print(getTagID('java'))
 #print(getTagName(17))
 #print(getTagClusterByID(17))
-#print(getTagClusterByID(getTagID("java")))
+#print(getTagClusterByID(getTagID('java')))
 #print(getTagClusterByName('java'))
 #print(getTagClusterByName(getTagName(17)))
 #print(getTagsOfCluster(5))
 #print(getTagsOfCluster(getTagClusterByName(getTagName(17))))
-#print(getTagsOfCluster(getTagClusterByID(getTagID("java"))))
+#print(getTagsOfCluster(getTagClusterByID(getTagID('java'))))
 
 """
+# get the tags from a cluster
 for i in range(100):
     t = getTagsOfCluster(i)
     if t is not None:
