@@ -113,8 +113,6 @@ def getDocuments(idq):
         if qindex is not None:
             documents.append(questions[qindex][1])
     return documents
-    #q0 = [q[0] for q in questions]
-    #return [questions[stu_misc.dichotomic_find(q0, id)][1] for id in idq if stu_misc.dichotomic_search(q0, id)]
 
 # Global variable
 questions = _loadQuestions()
