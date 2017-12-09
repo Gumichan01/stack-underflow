@@ -7,8 +7,6 @@
 
 import csv
 import stu_misc
-
-from stu_tags import tags
 from math import sqrt
 
 
@@ -97,12 +95,11 @@ def filterQuestions(qarray):
     Test
 """
 
-
 #print('Questions from c++')
-#qs = getQuestionsFromTag('c++')
-#print('qs ok')
-#print('number of questions')
-#print(len(qs))
+qs = getQuestionsFromTag('c++')
+print('qs ok')
+print('number of questions')
+print(len(qs))
 #print('check')
 #print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
 
