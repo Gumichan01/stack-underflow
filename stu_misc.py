@@ -40,6 +40,31 @@ def dichotomic_search(l,v):
                 end   = indexm - 1
     return found
 
+def dichotomic_find(l,v):
+    """
+        Try to find the a value in a sorted list of elements
+
+        Arg:
+            the list where you want to search and v
+        Result:
+            the content if found, None otherwise
+    """
+    indexm = None
+    begin = 0
+    end = len(l) -1
+    found = False
+
+    while not(found) and begin <= end:
+        indexm = (begin + end) // 2
+        if l[indexm] == v:
+            found = True
+        else:
+            if v > l[indexm]:
+                begin = indexm + 1
+            else:
+                end   = indexm - 1
+    return indexm if found else None
+
 def average(lst):
     return (sum(lst) / len(lst))
 
