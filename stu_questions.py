@@ -90,12 +90,14 @@ def getQuestionsFromTag(tagname):
                 qarray.append(qidv)
             elif qidv > stu_misc.MAX_ID:
                 break
-    return qarray
+    return filterQuestions(qarray)
 
 def isInSample(qid):
     """
-        Return the list of question identifers
-        so that each identifier refers to a real question in the sample
+        Check if the identifier of a question is in the sample.
+
+        I used the dichotomic search because every questions in the sample
+        are sorted by there identifier
 
         Arg:
             the question identifier
@@ -103,18 +105,7 @@ def isInSample(qid):
         Return:
             True if it is in the sample, False otherwise
     """
-
-
-    """
-    with open(QUESTION_SAMPLE, 'r') as csvf:
-        reader = csv.reader(csvf, skipinitialspace=True)
-        for r in reader:
-            v = int(r[0]) if r[0] != 'Id' else None
-            if v is None or v < qid:
-                continue
-            else:
-                return int(r[0]) == qid
-    """
+    return stu_misc.dichotomic_search([q[0] for q in questions], qid)
 
 def filterQuestions(qarray):
     """
@@ -127,12 +118,14 @@ def filterQuestions(qarray):
         Return:
             the filtered array
     """
+    return [q for q in qarray if isInSample(q)]
+    """
     fqarray = []
     for q in qarray:
         if isInSample(q):
             fqarray.append(q)
     return fqarray
-
+    """
 
 # Global variable
 questions = _loadQuestions()
@@ -146,17 +139,15 @@ questions = _loadQuestions()
 
 #print('Questions from c++')
 #qs = getQuestionsFromTag('c++')
-#print('qs ok')
 #print('number of questions')
 #print(len(qs))
 #print('check')
 #print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
-
-#print('number of filtered questions')
 #print('filter \n')
 #fqs = filterQuestions(qs)
 #qs = None
 #print('fqs ok \n')
+#print('number of filtered questions')
 #print(len(fqs))
 
 #print(filterQuestions([75,76,77,78,79,80, 330, 331, 332]))
