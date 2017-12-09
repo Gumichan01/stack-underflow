@@ -103,6 +103,9 @@ def isInSample(qid):
         Return:
             True if it is in the sample, False otherwise
     """
+
+
+    """
     with open(QUESTION_SAMPLE, 'r') as csvf:
         reader = csv.reader(csvf, skipinitialspace=True)
         for r in reader:
@@ -111,6 +114,7 @@ def isInSample(qid):
                 continue
             else:
                 return int(r[0]) == qid
+    """
 
 def filterQuestions(qarray):
     """
@@ -137,8 +141,8 @@ questions = _loadQuestions()
     Test
 """
 
-print(len(questions))
-print(questions[0])
+#print(len(questions))
+#print(questions[0])
 
 #print('Questions from c++')
 #qs = getQuestionsFromTag('c++')
