@@ -11,6 +11,10 @@ from math import sqrt
 ENDL  = '\n'
 COMMA = ','
 
+# Question identifers
+MIN_ID = 80
+MAX_ID = 4714870
+
 # miscellaneous functions
 def average(lst):
     return (sum(lst) / len(lst))
