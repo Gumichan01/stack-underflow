@@ -2,7 +2,7 @@
 from math import sqrt
 
 """
-    misc.py is a file that contains miscellaneous functions
+    stu_misc.py is a file that contains miscellaneous functions
 """
 
 # miscellaneous constant values
