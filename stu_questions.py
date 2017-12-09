@@ -5,7 +5,9 @@
     It contains every operations on questions
 """
 
+import re
 import csv
+import string
 import stu_misc
 from math import sqrt
 
@@ -13,15 +15,49 @@ from math import sqrt
 QUESTION_TAGS   = 'data/question_tags.csv'
 QUESTION_SAMPLE = 'data/sample_questionsv0.csv'
 
-def getQTags(question_id):
+# private functions
+
+def _concatenate(first_string, second_string):
     """
+        Generate a document that contains the label + the content of a question
+        and format it
+
+        Arg:
+            Two strings to concatenate
+
+        Return:
+            the formatted document
+    """
+    # I want to consider a label + the content of the question as a document
+    concat = ''.join([first_string, ' ', second_string])
+    nosep  = ''.join('' if c == '\n' or c == '\t' else c for c in concat)
+    # Since a question is written in HTML format, I have to get rid of html flags
+    # and every punctuations
+    nothml = re.sub('<[a-zA-Z][^>]*>|</[a-zA-Z]+>', '', nosep)
+    substr = re.sub('['+string.punctuation+']', ' ', nothml)
+    # At this point, my document has several spaces between worlds, I reduce them to one
+    return re.sub(' +', ' ', substr).rstrip(' ')
+
+def _loadQuestions():
+    with open(QUESTION_SAMPLE) as f:
+        f.readline()            # Ignore the first line
+        reader = csv.reader(f.readlines(), skipinitialspace=True)
+        qarray = []
+        for r in reader:
+            qarray.append( (int(r[0]), _concatenate(r[5], r[6])) )
+        return qarray
+
+# public functions
+"""
+def getQTags(question_id):
+
         Return a list of tags related the question specified by its id
 
         Arg:
-            question_id
+            the identifier of the question
         Return:
             the list of tags if found, None otherwise
-    """
+
     qtags = []
     with open(QUESTION_TAGS, 'r') as f:
         f.readline()    # I ignore this first line because it's just metadata
@@ -33,6 +69,7 @@ def getQTags(question_id):
             elif qid > question_id:
                 return qtags if qtags != [] else None
         return qtags if qtags != [] else None
+"""
 
 def getQuestionsFromTag(tagname):
     """
@@ -91,15 +128,23 @@ def filterQuestions(qarray):
         if isInSample(q):
             fqarray.append(q)
     return fqarray
+
+
+# Global variable
+questions = _loadQuestions()
+
 """
     Test
 """
 
+print(len(questions))
+print(questions[0])
+
 #print('Questions from c++')
-qs = getQuestionsFromTag('c++')
-print('qs ok')
-print('number of questions')
-print(len(qs))
+#qs = getQuestionsFromTag('c++')
+#print('qs ok')
+#print('number of questions')
+#print(len(qs))
 #print('check')
 #print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
 
