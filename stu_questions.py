@@ -97,6 +97,25 @@ def filterQuestions(qarray):
     """
     return [q for q in qarray if isInSample(q)]
 
+def getDocuments(idq):
+    """
+        Retrieve the documents according to their identifiers
+
+        Arg:
+            the identifiers
+        Return:
+            the list of documents
+    """
+    documents = []
+    q0 = [q[0] for q in questions]
+    for id in idq:
+        qindex = stu_misc.dichotomic_find(q0, id)
+        if qindex is not None:
+            documents.append(questions[qindex][1])
+    return documents
+    #q0 = [q[0] for q in questions]
+    #return [questions[stu_misc.dichotomic_find(q0, id)][1] for id in idq if stu_misc.dichotomic_search(q0, id)]
+
 # Global variable
 questions = _loadQuestions()
 
@@ -113,11 +132,13 @@ questions = _loadQuestions()
 #print(len(qs))
 #print('check')
 #print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
+#print('get documents')
+#qdoc = getDocuments(qs)
+#print(len(qdoc))
 #print('filter \n')
 #fqs = filterQuestions(qs)
 #qs = None
 #print('fqs ok \n')
 #print('number of filtered questions')
 #print(len(fqs))
-
 #print(filterQuestions([75,76,77,78,79,80, 330, 331, 332]))
