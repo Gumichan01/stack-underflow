@@ -48,29 +48,6 @@ def _loadQuestions():
         return qarray
 
 # public functions
-"""
-def getQTags(question_id):
-
-        Return a list of tags related the question specified by its id
-
-        Arg:
-            the identifier of the question
-        Return:
-            the list of tags if found, None otherwise
-
-    qtags = []
-    with open(QUESTION_TAGS, 'r') as f:
-        f.readline()    # I ignore this first line because it's just metadata
-        for line in f:
-            row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
-            qid = int(row[0])
-            if qid == question_id:
-                tags.append(row[1])
-            elif qid > question_id:
-                return qtags if qtags != [] else None
-        return qtags if qtags != [] else None
-"""
-
 def getQuestionsFromTag(tagname):
     """
         Return the list of the questions that are related to the tags
@@ -119,13 +96,6 @@ def filterQuestions(qarray):
             the filtered array
     """
     return [q for q in qarray if isInSample(q)]
-    """
-    fqarray = []
-    for q in qarray:
-        if isInSample(q):
-            fqarray.append(q)
-    return fqarray
-    """
 
 # Global variable
 questions = _loadQuestions()
