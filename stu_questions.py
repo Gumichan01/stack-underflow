@@ -36,7 +36,7 @@ def _concatenate(first_string, second_string):
     nothml = re.sub('<[a-zA-Z][^>]*>|</[a-zA-Z]+>', '', nosep)
     substr = re.sub('['+string.punctuation+']', ' ', nothml)
     # At this point, my document has several spaces between worlds, I reduce them to one
-    return re.sub(' +', ' ', substr).rstrip(' ')
+    return re.sub(' +', ' ', substr).rstrip(' ').lower()
 
 def _loadQuestions():
     with open(QUESTION_SAMPLE) as f:
