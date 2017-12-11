@@ -11,7 +11,7 @@ from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def transform_text(documents):
-    tfidf_model = TfidfVectorizer(min_df = 0.1, max_df = 0.5)
+    tfidf_model = TfidfVectorizer(min_df = 0.4, max_df = 0.8)
     tfidf = tfidf_model.fit_transform(documents)
     return tfidf
 
