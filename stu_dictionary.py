@@ -11,24 +11,28 @@ from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def transform_text(documents):
-    tfidf_model = TfidfVectorizer(min_df = 0.2, max_df = 0.7, stop_words='english')
+    tfidf_model = TfidfVectorizer(min_df = 0.1, max_df = 0.6, stop_words='english')
     tfidf = tfidf_model.fit_transform(documents)
     return tfidf_model.get_feature_names()
 
 """
+print('Number of tags to process: ', len(tags))
+
 for t in tags:
-    print('Questions from ', t.name)
-    qs = getQuestionsFromTag('c++')
+    print('Questions from ', t)
+    qs = getQuestionsFromTag(t)
 
     # I don't take tags with less than 10 questions that use it
-    if(len(qs) < 10):
-        print(t.name, ' ignored: not enough questions')
+    n = len(qs)
+    if(n < 100):
+        print('FAILURE - ',t, ' ignored: not enough questions: ', n)
         continue
     else:
-        print(t.name, ' has ', len(qs), ' questions')
+        print('SUCCESS - ',t, ' has ', len(qs), ' questions')
         fwords = transform_text(getDocuments(qs))
-        print('number of world: ', len(fwords))
-        print(fwords)
+        print('Number of words: ', len(fwords))
+        fwords = None
+        #print(fwords)
         # put it in a file
 """
 

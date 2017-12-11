@@ -11,11 +11,10 @@ import stu_misc
 # constant values
 #files
 TAGS_FILE         = 'data/sample_tags.csv'
-TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
-TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
+#TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
+#TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
 # Tag is a structure (named tuple) that contains information about a tag
-Tag = struct("TagInfo", "id name")
 
 # "private" functions
 def _loadTags():
@@ -29,10 +28,14 @@ def _loadTags():
     with open(TAGS_FILE) as f:
         f.readline()    # I ignore the first line
         tarray = []
+        dic = dict()
         lines  = f.readlines()
         for line in lines:
-            row = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
-            tarray.append(Tag(id = int(row[0]), name = row[1]))
+            row  = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
+            name = row[1]
+            if name not in dic:
+                tarray.add(name)
+                dic[name] = 0
         return tarray
 
 # "public" functions
@@ -44,21 +47,6 @@ def countTags():
             the number of tags
     """
     return _taglength
-
-def getTagInfoByName(tagname):
-    """
-        Get information about a tag specified by its name
-
-        Arg:
-            tagname the tag
-
-        Return:
-            a named n-tuple TagInfo is found, None otherwise
-    """
-    for t in tags:
-        if t.name == tagname:
-            return t
-    return None
 
 #cluster
 
@@ -107,8 +95,7 @@ _taglength = len(tags)
 """
     Test
 """
-#print(countTags())
-#print(getTagInfoByName('c++'))
+print(countTags())
 #print(getTagClusterByName('c++'))
 #print(getTagsOfCluster(getTagClusterByName('c++')))
 #print(tags[0])
