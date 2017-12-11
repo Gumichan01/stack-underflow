@@ -11,18 +11,36 @@ from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def transform_text(documents):
-    tfidf_model = TfidfVectorizer(min_df = 0.4, max_df = 0.8)
+    tfidf_model = TfidfVectorizer(min_df = 0.2, max_df = 0.7, stop_words='english')
     tfidf = tfidf_model.fit_transform(documents)
-    return tfidf
+    return tfidf_model.get_feature_names()
 
+"""
+for t in tags:
+    print('Questions from ', t.name)
+    qs = getQuestionsFromTag('c++')
 
-#print('Questions from c++')
+    # I don't take tags with less than 10 questions that use it
+    if(len(qs) < 10):
+        print(t.name, ' ignored: not enough questions')
+        continue
+    else:
+        print(t.name, ' has ', len(qs), ' questions')
+        fwords = transform_text(getDocuments(qs))
+        print('number of world: ', len(fwords))
+        print(fwords)
+        # put it in a file
+"""
+
+print('Questions from c++')
 qs = getQuestionsFromTag('c++')
 print('number of questions')
 print(len(qs))
-print('check')
-print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
+#print('check')
+#print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
 print('get documents')
 qdoc = getDocuments(qs)
 print(len(qdoc))
-print(transform_text(qdoc))
+fwords = transform_text(qdoc)
+print('number of world: ', len(fwords))
+print(fwords)
