@@ -6,11 +6,11 @@
     E is the set of every word calculated by TF-IDF
 """
 
+import stu_misc
 #from stu_tags import tags
 from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-DICT_FILE='dict.csv'
 
 def transform_text(documents):
     tfidf_model = TfidfVectorizer(min_df = 0.1, max_df = 0.6, stop_words='english')
@@ -20,11 +20,12 @@ def transform_text(documents):
 def generate_string(wlist):
     return ' '.join([w for w in wlist])
 
+# sample of tags
 tags = ['c++','java','sql','python','scala','windows','linux','unix','c#','c']
 print('Number of tags to process: ', len(tags))
 
-with open(DICT_FILE, 'w+') as f:
-    print('Generate the tags into ', DICT_FILE,' ...')
+with open(stu_misc.DICT_FILE, 'w+') as f:
+    print('Generate the tags into ',DICT_FILE,'...')
     for t in tags:
         print('Questions from ', t)
         qs = getQuestionsFromTag(t)

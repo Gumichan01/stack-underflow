@@ -1,20 +1,18 @@
 #!/bin/python3
 
-from math import sqrt
-from collections import namedtuple as struct
-import stu_misc
-
 """
     Stack Overflow - tags
 """
 
+from math import sqrt
+from collections import namedtuple as struct
+import stu_misc
+
 # constant values
 #files
 TAGS_FILE         = 'data/sample_tags.csv'
-#TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
+TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 #TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
-
-# Tag is a structure (named tuple) that contains information about a tag
 
 # "private" functions
 def _loadTags():
@@ -29,7 +27,7 @@ def _loadTags():
         f.readline()    # I ignore the first line
         tarray = []
         dic = dict()
-        lines  = f.readlines()
+        lines = f.readlines()
         for line in lines:
             row  = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
             name = row[1]
@@ -48,8 +46,7 @@ def countTags():
     """
     return _taglength
 
-#cluster
-
+# cluster
 def getTagClusterByName(tag_name):
     """
         Return the tag cluster of the tag
