@@ -5,7 +5,6 @@
     It contains every operations on questions
 """
 
-import re
 import csv
 import string
 import stu_misc
@@ -17,27 +16,6 @@ QUESTION_SAMPLE = 'data/sample_questionsv0.csv'
 
 # private functions
 
-def _concatenate(first_string, second_string):
-    """
-        Generate a document that contains the label + the content of a question
-        and format it
-
-        Arg:
-            Two strings to concatenate
-
-        Return:
-            the formatted document
-    """
-    # I want to consider a label + the content of the question as a document
-    concat = ''.join([first_string, ' ', second_string])
-    nosep  = ''.join('' if c == '\n' or c == '\t' else c for c in concat)
-    # Since a question is written in HTML format, I have to get rid of html flags
-    # and every punctuations
-    nothml = re.sub('<[a-zA-Z][^>]*>|</[a-zA-Z]+>', '', nosep)
-    substr = re.sub('['+string.punctuation+']', ' ', nothml)
-    # At this point, my document has several spaces between worlds, I reduce them to one
-    return re.sub(' +', ' ', substr).rstrip(' ').lower()
-
 def _loadQuestions():
     print('Load questions from database...')
     with open(QUESTION_SAMPLE) as f:
@@ -45,7 +23,7 @@ def _loadQuestions():
         reader = csv.reader(f.readlines(), skipinitialspace=True)
         qarray = []
         for r in reader:
-            qarray.append( (int(r[0]), _concatenate(r[5], r[6])) )
+            qarray.append( (int(r[0]), stu_misc.concatenate(r[5], r[6])) )
         print('Done')
         return qarray
 

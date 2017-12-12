@@ -1,9 +1,11 @@
-
-from math import sqrt
+#!/bin/python3
 
 """
     stu_misc.py is a file that contains miscellaneous functions
 """
+
+import re
+from math import sqrt
 
 # miscellaneous constant values
 
@@ -15,7 +17,33 @@ COMMA = ','
 MIN_ID = 80
 MAX_ID = 4714870
 
+# dictionary
+DICT_FILE='dict.csv'
+
 # miscellaneous functions
+
+def concatenate(first_string, second_string):
+    """
+        Generate a document that contains the label + the content of a question
+        and format it
+
+        Arg:
+            Two strings to concatenate
+
+        Return:
+            the formatted document
+    """
+    # I want to consider a label + the content of the question as a document
+    concat = ''.join([first_string, ' ', second_string])
+    nosep  = ''.join('' if c == '\n' or c == '\t' else c for c in concat)
+    # Since a question is written in HTML format, I have to get rid of html flags
+    # and every punctuations
+    nothml = re.sub('<[a-zA-Z][^>]*>|</[a-zA-Z]+>', '', nosep)
+    substr = re.sub('['+string.punctuation+']', ' ', nothml)
+    # At this point, my document has several spaces between worlds, I reduce them to one
+    return re.sub(' +', ' ', substr).rstrip(' ').lower()
+
+
 def dichotomic_search(l,v):
     """
         Try to find the a value in a sorted list of elements
