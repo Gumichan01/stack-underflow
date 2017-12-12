@@ -5,6 +5,7 @@
 """
 
 import re
+import string
 from math import sqrt
 
 # miscellaneous constant values

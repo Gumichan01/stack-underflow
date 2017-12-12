@@ -6,7 +6,6 @@
 """
 
 import csv
-import string
 import stu_misc
 from math import sqrt
 
