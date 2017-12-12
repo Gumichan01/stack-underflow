@@ -39,12 +39,14 @@ def _concatenate(first_string, second_string):
     return re.sub(' +', ' ', substr).rstrip(' ').lower()
 
 def _loadQuestions():
+    print('Load questions from database...')
     with open(QUESTION_SAMPLE) as f:
         f.readline()            # Ignore the first line
         reader = csv.reader(f.readlines(), skipinitialspace=True)
         qarray = []
         for r in reader:
             qarray.append( (int(r[0]), _concatenate(r[5], r[6])) )
+        print('Done')
         return qarray
 
 # public functions
