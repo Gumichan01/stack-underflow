@@ -32,7 +32,7 @@ def _loadTags():
             row  = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
             name = row[1]
             if name not in dic:
-                tarray.add(name)
+                tarray.append(name)
                 dic[name] = 0
         return tarray
 

@@ -7,7 +7,7 @@
 """
 
 import stu_misc
-#from stu_tags import tags
+from stu_tags import tags
 from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -20,13 +20,21 @@ def transform_text(documents):
 def generate_string(wlist):
     return ' '.join([w for w in wlist])
 
-# sample of tags
-tags = ['c++','java','sql','python','scala','windows','linux','unix','c#','c']
+# sample of tags (for testing)
+#tags = ['c++','java','sql','python','scala','windows','linux','unix','c#','c']
+max_t = 100
 print('Number of tags to process: ', len(tags))
+print('Maximum number of tags to process: ', max_t)
 
+v = 0
 with open(stu_misc.DICT_FILE, 'w+') as f:
-    print('Generate the tags into ',DICT_FILE,'...')
+    print('Generate the tags into ',stu_misc.DICT_FILE,'...')
     for t in tags:
+        if v == 100 :
+            break
+        else:
+            v += 1
+        # process the tag
         print('Questions from ', t)
         qs = getQuestionsFromTag(t)
 
