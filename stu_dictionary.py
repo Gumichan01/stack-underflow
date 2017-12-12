@@ -32,8 +32,7 @@ with open(stu_misc.DICT_FILE, 'w+') as f:
     for t in tags:
         if v == 100 :
             break
-        else:
-            v += 1
+
         # process the tag
         print('Questions from ', t)
         qs = getQuestionsFromTag(t)
@@ -52,6 +51,8 @@ with open(stu_misc.DICT_FILE, 'w+') as f:
             f.write(',')
             f.write(generate_string(fwords))
             f.write('\n')
+            v += 1
+            print('Tags that has been read: ', v)
     print('Generated every tags ...')
 
 """
