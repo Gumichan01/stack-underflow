@@ -9,6 +9,23 @@ for r in reader:
     print(r)
 """
 
+def generate_string_from(array):
+    return ' '.join([w for w in array])
+
+def save(pairs):
+    with open('dict.csv','w+') as f:
+        #f.write('tag, words\n')
+        for t, wl in pairs:
+            f.write(t)
+            f.write(', ')
+            f.write(generate_string_from(wl))
+            f.write('\n')
+
+
+l = ['hello','world','gumi', 'chan']
+
+print(generate_string_from(l))
+save([('c++', l), ('java', l), ('python', l), ('machine-learning', l)])
 
 # another experiment
 
