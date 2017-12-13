@@ -15,7 +15,7 @@ QUESTION_SAMPLE = 'data/sample_questionsv0.csv'
 
 # private functions
 
-def _loadQuestions():
+def _load_questions():
     print('Load questions from database...')
     with open(QUESTION_SAMPLE) as f:
         f.readline()            # Ignore the first line
@@ -27,14 +27,15 @@ def _loadQuestions():
         return qarray
 
 # public functions
-def getQuestionsFromTag(tagname):
+def get_question_from(tagname):
     """
         Return the list of the questions that are related to the tags
 
         Arg:
             the name of the tag
         Return:
-            the list of question, by identifier
+            the list of question identifier.
+            Each identifier refers to an existing question in the sample
     """
     qarray = []
     with open(QUESTION_TAGS, 'r') as f:
@@ -46,11 +47,12 @@ def getQuestionsFromTag(tagname):
                 qarray.append(qidv)
             elif qidv > stu_misc.MAX_ID:
                 break
-    return filterQuestions(qarray)
+    return filter(qarray)
 
-def isInSample(qid):
+def is_valid(qid):
     """
-        Check if the identifier of a question is in the sample.
+        Check if the identifier is valid, i.e. if the question
+        this ID refers to exists in the sample of questions
 
         I used the dichotomic search because every questions in the sample
         are sorted by there identifier
@@ -63,10 +65,11 @@ def isInSample(qid):
     """
     return stu_misc.dichotomic_search([q[0] for q in questions], qid)
 
-def filterQuestions(qarray):
+def filter(qarray):
     """
-        Filter the array of question. It generates a new array that contains
-        the identifiers that refers to the questions in the sample
+        Filter the array of question identifiers.
+        It generates a new array that contains the identifiers
+        that refers to the questions in the sample
 
         Arg:
             an array of questions
@@ -74,27 +77,27 @@ def filterQuestions(qarray):
         Return:
             the filtered array
     """
-    return [q for q in qarray if isInSample(q)]
+    return [q for q in qarray if is_valid(q)]
 
-def getDocuments(idq):
+def get_documents(idqarray):
     """
         Retrieve the documents according to their identifiers
 
         Arg:
-            the identifiers
+            the list of identifiers
         Return:
-            the list of documents
+            the list of documents (the questions)
     """
     documents = []
-    q0 = [q[0] for q in questions]
-    for id in idq:
-        qindex = stu_misc.dichotomic_find(q0, id)
+    qids = [q[0] for q in questions]
+    for id in idqarray:
+        qindex = stu_misc.dichotomic_find(qids, id)
         if qindex is not None:
             documents.append(questions[qindex][1])
     return documents
 
 # Global variable
-questions = _loadQuestions()
+questions = _load_questions()
 
 """
     Test
@@ -102,20 +105,15 @@ questions = _loadQuestions()
 
 #print(len(questions))
 #print(questions[0])
-
-#print('Questions from c++')
-#qs = getQuestionsFromTag('c++')
-#print('number of questions')
-#print(len(qs))
-#print('check')
-#print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
-#print('get documents')
-#qdoc = getDocuments(qs)
-#print(len(qdoc))
-#print('filter \n')
-#fqs = filterQuestions(qs)
-#qs = None
-#print('fqs ok \n')
-#print('number of filtered questions')
-#print(len(fqs))
-#print(filterQuestions([75,76,77,78,79,80, 330, 331, 332]))
+"""
+print('Questions from c++')
+qs = get_question_from('c++')
+print('number of questions')
+print(len(qs))
+print('check')
+print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
+print('get documents')
+qdoc = get_documents(qs)
+print(len(qdoc))
+print(filter([75,76,77,78,79,80, 330, 331, 332]))
+"""
