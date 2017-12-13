@@ -15,7 +15,7 @@ TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
 #TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
 # "private" functions
-def _loadTags():
+def _load_tags():
     """
         It loads the tags from TAGS_FILE and and stores them
         in a data structure that contains the tags
@@ -37,19 +37,10 @@ def _loadTags():
         return tarray
 
 # "public" functions
-def countTags():
-    """
-        Count the number of tags
-
-        Return:
-            the number of tags
-    """
-    return _taglength
-
 # cluster
-def getTagClusterByName(tag_name):
+def get_tag_cluster(tag_name):
     """
-        Return the tag cluster of the tag
+        Return the cluster of the tag
 
         Arg:
             the tag specified by its name
@@ -64,16 +55,14 @@ def getTagClusterByName(tag_name):
                 if tag_name == tname:
                     return int(row[1])
     return None
-
+"""
 def getTagsOfCluster(cluster_id):
-    """
-        Return the tags conained in a cluster specified by its iD
+        Return the tags contained in a cluster specified by its iD
 
         Arg:
             the ID of the cluster
         Return:
             the tags that belong to the cluster, None otherwise
-    """
     with open(TAG_NETWORK_NODE, 'r') as f:
         cluster_tags = []
         f.readline()    # I ignore the first line because it's just metadata
@@ -83,17 +72,15 @@ def getTagsOfCluster(cluster_id):
             if cluster_value == cluster_id:
                 cluster_tags.append(row[0])
         return cluster_tags if cluster_tags != [] else None
-
+"""
 
 # Global variables
-tags = _loadTags()
-_taglength = len(tags)
+tags = _load_tags()
 
 """
     Test
 """
-print(countTags())
-#print(getTagClusterByName('c++'))
-#print(getTagsOfCluster(getTagClusterByName('c++')))
+#print(len(tags))
+#print(get_tag_cluster('c++'))
 #print(tags[0])
 #print(tags[79])
