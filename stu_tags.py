@@ -38,7 +38,7 @@ def _load_tags():
 
 # "public" functions
 # cluster
-def get_tag_cluster(tag_name):
+def get_cluster_of(tag_name):
     """
         Return the cluster of the tag
 
@@ -81,6 +81,6 @@ tags = _load_tags()
     Test
 """
 #print(len(tags))
-#print(get_tag_cluster('c++'))
+#print(get_cluster_of('c++'))
 #print(tags[0])
 #print(tags[79])
