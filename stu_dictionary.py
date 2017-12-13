@@ -7,7 +7,7 @@
 """
 
 import stu_misc
-from stu_tags import tags
+from stu_tags import load_tags
 from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -34,9 +34,11 @@ def generate_string_from(wlist):
 # sample of tags (for testing)
 #tags = ['c++','java','sql','python','scala','windows','linux','unix','c#','c']
 max_t = 100
+
+print('Load tags...')
+tags = load_tags()
 print('Number of tags to process: ', len(tags))
 print('Maximum number of tags to process: ', max_t)
-
 
 v = 0
 max_v = 4
