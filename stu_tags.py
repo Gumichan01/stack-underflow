@@ -12,10 +12,9 @@ import stu_misc
 #files
 TAGS_FILE         = 'data/sample_tags.csv'
 TAG_NETWORK_NODE  = 'data/stack_network_nodes.csv'
-#TAG_NETWORK_LINKS = 'data/stack_network_links.csv'
 
-# "private" functions
-def _load_tags():
+# functions
+def load_tags():
     """
         It loads the tags from TAGS_FILE and and stores them
         in a data structure that contains the tags
@@ -36,7 +35,6 @@ def _load_tags():
                 dic[name] = 0
         return tarray
 
-# "public" functions
 # cluster
 def get_cluster_of(tag_name):
     """
@@ -73,9 +71,6 @@ def getTagsOfCluster(cluster_id):
                 cluster_tags.append(row[0])
         return cluster_tags if cluster_tags != [] else None
 """
-
-# Global variables
-tags = _load_tags()
 
 """
     Test
