@@ -7,7 +7,6 @@
 """
 
 import stu_misc
-from stu_tags import load_tags
 from stu_questions import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -27,60 +26,34 @@ def transform_text(documents):
 
 def generate_string_from(wlist):
     """
-        Convert list of element to a string that conains every elements
+        Convert list of element to a string that contains every elements
     """
     return ' '.join([w for w in wlist])
 
-# sample of tags (for testing)
-#tags = ['c++','java','sql','python','scala','windows','linux','unix','c#','c']
-max_t = 100
-
-print('Load tags...')
-tags = load_tags()
-print('Number of tags to process: ', len(tags))
-print('Maximum number of tags to process: ', max_t)
-
 v = 0
-max_v = 4
-with open('stu_misc.DICT_FILE, 'w+') as f:
+min_t = 48
+with open(stu_misc.DICT_FILE, 'w+') as f:
     print('Generate the tags into ',stu_misc.DICT_FILE,'...')
-    for t in tags:
-        if v == max_v :
-            break
+    for lt in lookup_table:
 
         # process the tag
-        print('Questions from ', t)
-        qs = get_question_from(t)
+        print('Questions from ', lt)
+        qs = get_documents(lookup_table[lt])
 
         # I don't take tags with less than 10 questions that use it
         n = len(qs)
-        if(n < max_t):
-            print('FAILURE - ',t, ' ignored: not enough questions: ', n)
+        if(n < min_t):
+            print('FAILURE - ',lt,' ignored: not enough questions: ', n)
             continue
         else:
-            print('SUCCESS - ', t, ' has ', len(qs), ' questions')
-            fwords = transform_text(get_documents(qs))
+            print('SUCCESS - ',lt,' has ',n,' questions')
+            fwords = transform_text(qs)
             print('Number of words: ', len(fwords))
             # put it in a file
-            f.write(t)
+            f.write(lt)
             f.write(',')
             f.write(generate_string_from(fwords))
             f.write('\n')
             v += 1
             print('Tags that has been read: ', v)
     print('Generated every tags ...')
-
-"""
-print('Questions from c++')
-qs = get_question_from('c++')
-print('number of questions')
-print(len(qs))
-print('check')
-print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
-print('get documents')
-qdoc = get_documents(qs)
-print(len(qdoc))
-fwords = transform_text(qdoc)
-print('number of world: ', len(fwords))
-print(fwords)
-"""
