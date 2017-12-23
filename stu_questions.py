@@ -26,6 +26,7 @@ def _load_questions():
         print('Done')
         return qdict
 
+# load the lookup table from the original lookup file (heavy operation)
 def _load_lookup_heavy():
     print('Load lookup table from ',QUESTION_TAGS,'...')
     ldict = dict()
@@ -45,13 +46,15 @@ def _load_lookup_heavy():
     print('Done')
     return ldict
 
+
 def _load_lookup():
     with open('lookup.csv','r') as f:
-        print('Load generated lookup table from ...')
+        print('Load generated lookup table...')
         ldict = dict()
         for line in f.readlines():
             row  = line.strip(stu_misc.ENDL).split(stu_misc.COMMA)
-            l.dict[row[0]] = [int(v) for v in row[1].split(' ')]
+            ldict[row[0]] = [int(v) for v in row[1].split(' ')]
+        print('Done')
     return ldict
 
 
@@ -130,8 +133,8 @@ def get_documents(idqarray):
 
 # Global variable
 questions = _load_questions()
-lookup_table = _load_lookup_heavy()
-
+lookup_table = _load_lookup()
+"""
 print('Save lookup')
 with open('lookup.csv', 'w+') as f:
     for t in lookup_table:
@@ -144,22 +147,17 @@ with open('lookup.csv', 'w+') as f:
         f.write('\n')
 
 print('Lookup saved')
+"""
 
 """
     Test
 """
 
-print(len(questions))
-print(len(lookup_table))
-#print(questions[80])
-
-print('Questions from c++')
-#qs = get_question_from('c++')
-print('number of questions')
-print(len(lookup_table['c++']))
-print('check')
-#print(all(q >= stu_misc.MIN_ID and q <= stu_misc.MAX_ID and (q % 10) == 0 for q in qs))
-print('get documents')
-qdoc = get_documents(lookup_table['c++'])
-print(len(qdoc))
-#print(filter([75,76,77,78,79,80, 330, 331, 332]))
+#print(len(questions))
+#print(len(lookup_table))
+#print('Questions from c++')
+#print('number of questions')
+#print(len(lookup_table['c++']))
+#print('get documents')
+#qdoc = get_documents(lookup_table['c++'])
+#print(len(qdoc))
