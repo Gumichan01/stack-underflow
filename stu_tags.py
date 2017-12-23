@@ -4,9 +4,9 @@
     Stack Overflow - tags
 """
 
-from math import sqrt
-from collections import namedtuple as struct
 import stu_misc
+from math import sqrt
+
 
 # constant values
 #files
