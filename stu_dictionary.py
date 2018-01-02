@@ -20,7 +20,7 @@ def transform_text(documents):
         Return:
             the feature names from the documents
     """
-    tfidf_model = TfidfVectorizer(min_df = 0.1, max_df = 0.6, stop_words='english')
+    tfidf_model = TfidfVectorizer(min_df = 0.2, max_df = 0.9, stop_words='english')
     tfidf = tfidf_model.fit_transform(documents)
     return tfidf_model.get_feature_names()
 
@@ -31,7 +31,7 @@ def generate_string_from(wlist):
     return ' '.join([w for w in wlist])
 
 v = 0
-min_t = 48
+min_t = 100
 with open(stu_misc.DICT_FILE, 'w+') as f:
     print('Generate the tags into ',stu_misc.DICT_FILE,'...')
     for lt in lookup_table:
@@ -40,7 +40,7 @@ with open(stu_misc.DICT_FILE, 'w+') as f:
         print('Questions from ', lt)
         qs = get_documents(lookup_table[lt])
 
-        # I don't take tags with less than 10 questions that use it
+        # I don't take tags with less than min_t questions that use it
         n = len(qs)
         if(n < min_t):
             print('FAILURE - ',lt,' ignored: not enough questions: ', n)
